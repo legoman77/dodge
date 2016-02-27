@@ -22,7 +22,7 @@ DogeDodge.Play.prototype = {
     this.background.autoScroll(-50,50);
     this.background.scale.set(1);
     this.background.smoothed = false;
-    this.dodger = this.add.sprite(100,100,'player',5);
+    this.dodger = this.add.sprite(200,500,'player',5);
     this.dodger.anchor.set(0.5,0.5);
     this.dodger.smoothed = false;
     this.dodger.animations.add('eyes');
