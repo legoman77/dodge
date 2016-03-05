@@ -2,6 +2,11 @@
 
 'use strict'
 
+var max = 301;
+var min = 0;
+var speedmax = 21;
+var speedmin = 1;
+
 var DogeDodge = {};
 
 DogeDodge.Play = function () {};
@@ -15,6 +20,7 @@ DogeDodge.Play.prototype = {
   preload: function () {
     this.load.image('background','assets/GameBackground.png',320,568);
     this.load.spritesheet('player','assets/Guy.Who.Dodges.Stuff.png',40,71,2);
+    this.load.spritesheet('faller','assets/Thing.That.Falls.From.the.Sky.png',40,71,1);
   },
 
   create: function() {
@@ -27,17 +33,39 @@ DogeDodge.Play.prototype = {
     this.dodger.smoothed = false;
     this.dodger.animations.add('eyes');
     this.dodger.animations.play('eyes',2,true);
+    this.faller = this.add.sprite(50,50,'faller',5);
+    this.faller.anchor.set(0.5,0.5);
+    this.faller.smoothed = false;
+    this.fallerslow = this.add.sprite(100,100,'faller',5);
+    this.fallerslow.anchor.set(0.5,0.5);
+    this.fallerslow.smoothed = false;
     
     // movement keys
     this.cursors = game.input.keyboard.createCursorKeys();
   },
 
   update: function() {
-    if (this.cursors.left.isDown) {
-      this.dodger.x -= 10;
-    }
-    if (this.cursors.right.isDown) {
-    this.dodger.x += 10;
+    if (this.cursors.left.isDown || this.cursors.right.isDown) {
+      var faller_fallspeed = Math.random() * (speedmax - speedmin) + speedmin;
+      this.faller.y += faller_fallspeed;
+      if (this.faller.y > 568) {
+        this.faller.x = Math.random() * (max - min) + min;
+        this.faller.y = 50;
+        var faller_fallspeed = Math.random() * (speedmax - speedmin) + speedmin;
+      }
+      var fallerslow_fallspeed = Math.random() * (speedmax - speedmin) + speedmin;
+      this.fallerslow.y += fallerslow_fallspeed;
+      if (this.fallerslow.y > 568) {
+        this.fallerslow.x = Math.random() * (max - min) + min;
+        this.fallerslow.y = 50;
+        var fallerslow_fallspeed = Math.random() * (speedmax - speedmin) + speedmin;
+      }
+      if (this.cursors.left.isDown) {
+        this.dodger.x -= 10;
+      }
+      if (this.cursors.right.isDown) {
+        this.dodger.x += 10;
+      }
     }
   }
 
