@@ -24,7 +24,7 @@ DogeDodge.Play.prototype = {
   },
 
   create: function() {
-    game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.physics.startSystem(Phaser.Physics.ARCADE)
     
     // background
     this.background = this.add.tileSprite(0,0,320,568,'background');
@@ -38,7 +38,7 @@ DogeDodge.Play.prototype = {
     this.dodger.smoothed = false;
     this.dodger.animations.add('eyes');
     this.dodger.animations.play('eyes',2,true);
-    game.physics.arcade.enable(this.dodger);
+    game.physics.arcade.enable(this.dodger)
     this.dodger.collideWorldBounds = true;
     this.dodger.body.bounce.setTo(0.3);
     this.dodger.body.drag.setTo(3000);
@@ -47,13 +47,13 @@ DogeDodge.Play.prototype = {
     this.faller = this.add.sprite(50,50,'faller',5);
     this.faller.anchor.set(0.5,0.5);
     this.faller.smoothed = false;
-    game.physics.arcade.enable(this.faller);
+    game.physics.arcade.enable(this.faller)
     
     // fallerslow
     this.fallerslow = this.add.sprite(100,100,'faller',5);
     this.fallerslow.anchor.set(0.5,0.5);
     this.fallerslow.smoothed = false;
-    game.physics.arcade.enable(this.fallerslow);
+    game.physics.arcade.enable(this.fallerslow)
     
     // movement keys
     this.cursors = game.input.keyboard.createCursorKeys();
@@ -82,11 +82,12 @@ DogeDodge.Play.prototype = {
         this.dodger.x += 10;
       }
     }
-    game.physics.arcade.collide(this.faller,this.dodger,this.handleCollision);
+    game.physics.arcade.collide(this.faller,this.dodger,this.handleCollision)
+    game.physics.arcade.collide(this.dodger,this.fallerslow,this.handleCollision)
   },
 
   handleCollision: function() {
-    console.log("OUUCHH");
+    console.log("OUUCHH")
     game.state.start('Play')
   }
 
